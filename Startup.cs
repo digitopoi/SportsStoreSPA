@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using SportsStoreSPA.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SportsStoreSPA
 {
@@ -22,6 +24,10 @@ namespace SportsStoreSPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration
+                    ["Data:Products:ConnectionString"]));
+
             services.AddMvc();
         }
 
@@ -51,6 +57,8 @@ namespace SportsStoreSPA
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            SeedData.SeedDatabase(app.ApplicationServices.GetRequiredService<DataContext>());
         }
     }
 }
