@@ -58,7 +58,6 @@ namespace SportsStoreSPA
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            SeedData.SeedDatabase(app.ApplicationServices.GetRequiredService<DataContext>());
         }
     }
 }
