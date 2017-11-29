@@ -32,6 +32,8 @@ namespace SportsStoreSPA
                     logger.LogError(ex, "An error occured seeding the database.");
                 }
             }
+
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
